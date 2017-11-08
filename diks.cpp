@@ -1,5 +1,8 @@
 #include <iostream>
 #include <windows.h>
+#include <vector>
+#include <string>
+
 using namespace std;
 
 #define V 9
@@ -34,7 +37,7 @@ void dijkstra(int graf[V][V], int izvor){
 	
 	
 	//inicijalizacija izvorisnog roditelja
-	roditelj_index[izvor] = -1;
+	roditelj_index[0] = -1;
 	
 	//pracenje koji vrhovi su procesuirani
 	bool procesuirani[V];
@@ -116,8 +119,42 @@ int main (){
 	//poziv Dijkstrinog algoritma
 	dijkstra(graf, izvor);
 	Pozicija(0, 16);
-	
+	int x, p;
+	vector<string> result;
 	for(int i = 0; i < V ; i++){
+		int x = p = i;
+		
+		
+		if(roditelj_index[x] != -1)
+				result.push_back( string(1, (char)(98 + roditelj_index[izvor])));
+    else
+		    result.push_back( string(1, (char)(98 + roditelj_index[izvor])) + " -");
+
+			
+	  while(roditelj_index[x] != -1){
+   	
+	  	result.push_back( string(1, (char)(98 + roditelj_index[x])) );
+	  	
+			p=x;
+	  	x = roditelj_index[x];
+    	  	  
+      if(roditelj_index[x] != -1)
+			    result.push_back( " -" + to_string(graf[x][p]) + "-> ");
+	  
+  }
+  if(p != x)
+      result.push_back( " -" + to_string(graf[x][p]) + "-> ");
+  result.push_back( string(1, (char)(97 + izvor) ));
+	  
+		for(int o = result.size()-1 ; o > 0  ; o--)
+			cout << result[o];
+				
+		result.clear();
+	  cout << endl;
+				
+	}
+	
+	/*for(int i = 0; i < V ; i++){
 		int x = i;
 		while(roditelj_index[x] != -1){
 	    cout << (char)(98 + roditelj_index[x]);
@@ -129,7 +166,7 @@ int main (){
 	  		 cout <<"a" << endl;
 		else
 				cout << "->a" << endl;
-	}
+	}*/
 	
 	system("PAUSE");
 	return 0;
