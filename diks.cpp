@@ -2,6 +2,7 @@
 #include <windows.h>
 #include <vector>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -121,6 +122,7 @@ int main (){
 	Pozicija(0, 16);
 	int x, p;
 	vector<string> result;
+	stringstream ss;
 	for(int i = 0; i < V ; i++){
 		int x = p = i;
 		
@@ -138,13 +140,18 @@ int main (){
 			p=x;
 	  	x = roditelj_index[x];
     	  	  
-      if(roditelj_index[x] != -1)
-			    result.push_back( " -" + to_string(graf[x][p]) + "-> ");
-	  
+      if(roditelj_index[x] != -1){
+			    ss << (graf[x][p]);
+			    result.push_back( " -" + ss.str() + "-> ");
+	        ss.str("");
+			}
   }
-  if(p != x)
-      result.push_back( " -" + to_string(graf[x][p]) + "-> ");
-  result.push_back( string(1, (char)(97 + izvor) ));
+  if(p != x){
+  		  ss << (graf[x][p]);
+  	    result.push_back( " -" + ss.str() + "-> ");			
+  	    ss.str("");
+	}
+    result.push_back( string(1, (char)(97 + izvor) ));
 	  
 		for(int o = result.size()-1 ; o > 0  ; o--)
 			cout << result[o];
