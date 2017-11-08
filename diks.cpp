@@ -37,7 +37,7 @@ void dijkstra(int graf[V][V], int izvor){
 	
 	
 	//inicijalizacija izvorisnog roditelja
-	roditelj_index[0] = -1;
+	roditelj_index[izvor] = -1;
 	
 	//pracenje koji vrhovi su procesuirani
 	bool procesuirani[V];
